@@ -1,6 +1,13 @@
-import React, {Component} from "react";
-import ReactDOM from "react-dom";
-const json = require('./data.json');
+import React, {Component} from "react"
+import ReactDOM from "react-dom"
+
+// import {Firts} from "component/first"
+console.log("wtf");
+
+import {foot} from "./component/x"
+
+console.log(foot());
+
 
 var keySet = new Set()
 
@@ -62,7 +69,7 @@ const element = (
 )
 
 const element2 = {
-  type : h1,
+  type : "h1",
   props : {
     className : 'greeting',
     children: 'Hello, world!'
@@ -72,5 +79,47 @@ const element2 = {
 // <h1 class='greeting'>Hello World!</h1>
 
 
+// move this out later
 
-ReactDOM.render(element, document.getElementById("app"));
+
+function showTime() {
+  const e = (
+    <div>
+      <h1> Time: {new Date().toLocaleTimeString()} </h1>
+    </div>
+  )
+  ReactDOM.render(e, document.getElementById('app'))
+}
+
+
+setInterval(showTime, 1000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ReactDOM.render(First, document.getElementById("app"));

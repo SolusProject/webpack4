@@ -1,21 +1,17 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const webpack = require("webpack");
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 //const path = require('path');
 
 module.exports = {
-  //"context" : path.resolve(__dirname, "src"),
-  "module" : {
-    "rules" : [
+  module : {
+    rules : [
       {
-        "test" : /\.(js|html|jsx)$/,
-        "exclude" : /node_modules/,
-        "use" : "babel-loader"
+        test : /\.(js|html|jsx)$/,
+        exclude : /node_modules/,
+        use : "babel-loader"
       },
-      // {
-      //   test: /\.json$/,
-      //   loader: 'raw-loader'
-      // },
       {
         test: /\.html$/,
         use: [
@@ -39,8 +35,6 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
          $: "jquery",
-         jQuery: "jquery",
-         "window.jQuery": "jquery",
          _ : "lodash"
     })
 
