@@ -9,39 +9,7 @@ import {foot} from "./component/x"
 console.log(foot());
 
 
-var keySet = new Set()
-
-const parse = json => {
-  return Object.keys(json).map(key => {
-    if(json[key] instanceof Object) return parse(json[key])
-    else if(json[key] != "" && !keySet.has(key)) {
-      keySet.add(key)
-      return <tr><td>{key}</td><td>{json[key]}</td></tr>
-    }
-  })
-}
-
-// class App extends Component {
-//   //parse(json)
-//
-//   render() {
-//
-//
-//     return (
-//         <table>
-//           <tr>
-//             <th>Property</th>
-//             <th>Value</th>
-//           </tr>
-//             {parse(json.receivedOrder)}
-//
-//         </table>
-//
-//     );
-//   }
-//
-//
-// };
+var keySet = new Set();
 
 //export default App;
 //ReactDOM.render(<App />, document.getElementById("app"));
@@ -68,58 +36,86 @@ const element = (
   </div>
 )
 
-const element2 = {
-  type : "h1",
-  props : {
-    className : 'greeting',
-    children: 'Hello, world!'
-  }
-}
+const element2 = React.createElement(
+  'h1',
+  {className: 'greeting'},
+  'Hello, world!'
+);
+
 // this will generate this
 // <h1 class='greeting'>Hello World!</h1>
+//ReactDOM.render(element2, document.getElementById("app"));
+
+// so far you know only how to render a single component
+/*------------------------------------------------------------------*/
+
+//this is a react component
+function Welcome(props) {
+  return <h1>Weclome {props.name}!</h1>
+}
+
+// use ES6
+// NOTE: use of 'this'
+// NOTE: looks like directive alternative
+class Welcome2 extends React.Component {
+  render() {
+    return <h1>Weclome {this.props.name}!</h1>
+  }
+}
+
+
+class App extends React.Component {
+  render() {
+    return <div> {/* wrapper */}
+        <Welcome2 name="Alina" />
+        <Welcome2 name="Illya" />
+        <Welcome2 name="Vasia" />
+    </div>
+  }
+}
+
+//ReactDOM.render(<App/>, document.getElementById("app"));
 
 
 // move this out later
+// function Clock(props) {
+//   return (
+//     <div>
+//       <h1> Time: {props.date.toLocaleTimeString()} </h1>
+//     </div>
+//   )
+// }
+//
+// function tick() {
+//   ReactDOM.render(<Clock date={new Date()}/>, document.getElementById('app'))
+// }
+//
+//
+// setInterval(tick(), 1000)
 
-
-function showTime() {
-  const e = (
-    <div>
-      <h1> Time: {new Date().toLocaleTimeString()} </h1>
-    </div>
-  )
-  ReactDOM.render(e, document.getElementById('app'))
+class Clock extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {date : new Date()}
+  }
+  componentDidMount() {
+    this.timerID = setInterval(() => this.tick(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+  tick() {
+    this.setState({
+      date : new Date()
+    })
+  }
+  render () {
+    return (
+      <div>
+        <h1> Time: {this.state.date.toLocaleTimeString()} </h1>
+      </div>
+    )
+  }
 }
 
-
-setInterval(showTime, 1000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//ReactDOM.render(First, document.getElementById("app"));
+ReactDOM.render(<Clock/>, document.getElementById('app'))
